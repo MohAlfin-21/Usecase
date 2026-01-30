@@ -1,427 +1,526 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Activity Diagrams - SimKlinik (Final Safe)</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Activity Diagrams - SimKlinik (Final Safe)</title>
 
-    <!-- Mermaid -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <!-- Mermaid -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
-    <style>
-      :root {
-        --bg1: #667eea;
-        --bg2: #764ba2;
-        --accent: #2c5f7c;
-        --muted: #6c757d;
-        --card: #ffffff;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        margin: 0;
-        font-family:
-          Inter,
-          "Segoe UI",
-          Roboto,
-          system-ui,
-          -apple-system,
-          "Helvetica Neue",
-          Arial;
-        background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
-        padding: 28px;
-        -webkit-font-smoothing: antialiased;
-        color: #1f2937;
-      }
+  <style>
+    :root{
+      --bg1: #667eea;
+      --bg2: #764ba2;
+      --accent: #2C5F7C;
+      --muted: #6c757d;
+      --card: #ffffff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+      background: linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);
+      padding:28px;
+      -webkit-font-smoothing:antialiased;
+      color:#1f2937;
+    }
 
-      .wrap {
-        max-width: 1400px;
-        margin: 0 auto;
-        background: var(--card);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 24px 60px rgba(11, 22, 40, 0.35);
-      }
+    .wrap{
+      max-width:1400px;
+      margin:0 auto;
+      background:var(--card);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 24px 60px rgba(11,22,40,0.35);
+    }
 
-      .hero {
-        padding: 34px 40px;
-        background: linear-gradient(90deg, var(--accent) 20%, #14393f 100%);
-        color: #fff;
-      }
-      .hero h1 {
-        margin: 0 0 6px;
-        font-size: 30px;
-        letter-spacing: -0.5px;
-      }
-      .hero p {
-        margin: 0;
-        opacity: 0.95;
-      }
+    .hero{
+      padding:34px 40px;
+      background:linear-gradient(90deg,var(--accent)20%,#14393f 100%);
+      color:#fff;
+    }
+    .hero h1{margin:0 0 6px;font-size:30px;letter-spacing:-0.5px}
+    .hero p{margin:0;opacity:0.95}
 
-      .tabs {
-        display: flex;
-        gap: 6px;
-        padding: 12px 16px;
-        background: #f4f6f8;
-        border-bottom: 1px solid #e9eef2;
-        overflow: auto;
-      }
-      .tab {
-        background: transparent;
-        border: 0;
-        padding: 10px 14px;
-        cursor: pointer;
-        font-weight: 600;
-        color: var(--muted);
-        border-radius: 10px 10px 0 0;
-        transition: all 0.18s ease;
-        white-space: nowrap;
-      }
-      .tab:hover {
-        transform: translateY(-2px);
-        color: var(--accent);
-      }
-      .tab.active {
-        background: white;
-        color: var(--accent);
-        box-shadow: 0 -3px 0 0 #e9eef2 inset;
-        border-bottom: 3px solid var(--accent);
-      }
+    .tabs{
+      display:flex;
+      gap:6px;
+      padding:12px 16px;
+      background:#f4f6f8;
+      border-bottom:1px solid #e9eef2;
+      overflow:auto;
+    }
+    .tab{
+      background:transparent;
+      border:0;
+      padding:10px 14px;
+      cursor:pointer;
+      font-weight:600;
+      color:var(--muted);
+      border-radius:10px 10px 0 0;
+      transition:all .18s ease;
+      white-space:nowrap;
+    }
+    .tab:hover{transform:translateY(-2px); color:var(--accent)}
+    .tab.active{
+      background:white;
+      color:var(--accent);
+      box-shadow: 0 -3px 0 0 #e9eef2 inset;
+      border-bottom:3px solid var(--accent);
+    }
 
-      .content {
-        padding: 28px 36px 36px;
-      }
+    .content{
+      padding:28px 36px 36px;
+    }
 
-      .tab-content {
-        display: none;
-      }
-      .tab-content.active {
-        display: block;
-      }
+    .tab-content{
+      display:none;
+    }
+    .tab-content.active{display:block}
 
-      .diagram-info {
-        background: #f8fafb;
-        padding: 18px;
-        border-left: 5px solid var(--accent);
-        border-radius: 10px;
-        margin-bottom: 20px;
-      }
-      .diagram-info h3 {
-        margin: 0;
-        color: var(--accent);
-      }
-      .diagram-info p {
-        margin: 8px 0 0;
-        color: #475569;
-      }
+    .diagram-info{
+      background:#f8fafb;
+      padding:18px;
+      border-left:5px solid var(--accent);
+      border-radius:10px;
+      margin-bottom:20px;
+    }
+    .diagram-info h3{margin:0;color:var(--accent)}
+    .diagram-info p{margin:8px 0 0;color:#475569}
 
-      .diagram-frame {
-        background: #fff;
-        border-radius: 12px;
-        padding: 18px;
-        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-        overflow: auto;
-      }
+    .diagram-frame{
+      background:#fff;
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 6px 18px rgba(15,23,42,0.06);
+      overflow:auto;
+    }
 
-      .controls {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        margin-top: 16px;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-      }
-      .zoom-wrap {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-      }
-      .zoom-wrap input[type="range"] {
-        width: 200px;
-      }
-      .btn {
-        padding: 10px 14px;
-        border-radius: 10px;
-        border: 0;
-        cursor: pointer;
-        font-weight: 700;
-      }
-      .btn.primary {
-        background: linear-gradient(90deg, var(--bg1), var(--bg2));
-        color: white;
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
-      }
-      .btn.ghost {
-        background: transparent;
-        color: var(--accent);
-        border: 1px solid #e6eef6;
-      }
+    .controls{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-top:16px;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+    .zoom-wrap{display:flex;gap:8px;align-items:center}
+    .zoom-wrap input[type="range"]{width:200px}
+    .btn {
+      padding:10px 14px;
+      border-radius:10px;
+      border:0;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--bg1),var(--bg2));
+      color:white;
+      box-shadow:0 8px 20px rgba(102,126,234,0.2);
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid #e6eef6;
+    }
 
-      .mermaid-scale {
-        transform-origin: 0 0;
-        transition: transform 0.12s ease;
-        width: 100%;
-      }
+    .mermaid-scale{
+      transform-origin: 0 0;
+      transition: transform .12s ease;
+      width:100%;
+    }
 
-      @media (max-width: 900px) {
-        .hero h1 {
-          font-size: 22px;
-        }
-        .content {
-          padding: 20px;
-        }
-        .diagram-info {
-          padding: 14px;
-        }
-      }
+    @media (max-width:900px){
+      .hero h1{font-size:22px}
+      .content{padding:20px}
+      .diagram-info{padding:14px}
+    }
 
-      @media print {
-        body {
-          background: white;
-        }
-        .tabs,
-        .controls {
-          display: none;
-        }
-        .hero {
-          display: none;
-        }
-        .tab-content {
-          display: block !important;
-          page-break-after: always;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <div class="hero">
-        <h1>📊 Activity Diagrams</h1>
-        <p>SimKlinik — Sistem Informasi Manajemen Klinik · Versi final (safe)</p>
-      </div>
-
-      <div class="tabs" role="tablist" aria-label="Daftar Diagram">
-        <button class="tab active" onclick="showTab(0)">1. Booking</button>
-        <button class="tab" onclick="showTab(1)">2. Rekam Medis</button>
-        <button class="tab" onclick="showTab(2)">3. Proses Resep</button>
-        <button class="tab" onclick="showTab(3)">4. Pembayaran</button>
-        <button class="tab" onclick="showTab(4)">5. Master Obat</button>
-        <button class="tab" onclick="showTab(5)">6. Laporan</button>
-        <button class="tab" onclick="showTab(6)">7. Registrasi</button>
-        <button class="tab" onclick="showTab(7)">8. Login</button>
-      </div>
-
-      <div class="content">
-        <!-- TAB 1 -->
-        <div class="tab-content active" id="tab-0">
-          <div class="diagram-info">
-            <h3>Activity Diagram 1 — Booking Appointment</h3>
-            <p>Alur booking pasien: dari login hingga mendapatkan nomor antrian dan notifikasi.</p>
-          </div>
-          <div class="diagram-frame">
-            <div class="mermaid mermaid-scale" data-rendered="false">
-              flowchart TD Start([Pasien Ingin Booking]) --> Login{Sudah Login?} Login -->|Belum| DoLogin[Login ke Sistem] Login -->|Sudah| Dashboard DoLogin --> Dashboard[Buka Dashboard Pasien] Dashboard --> PilihPoli[Pilih Poli Klinik]
-              PilihPoli --> LihatJadwal[Lihat Jadwal Dokter] LihatJadwal --> CekJadwal{Jadwal Tersedia?} CekJadwal -->|Tidak| PilihPoli CekJadwal -->|Ya| PilihDokter[Pilih Dokter] PilihDokter --> PilihTanggal[Pilih Tanggal & Jam]
-              PilihTanggal --> CekKuota{Kuota Masih Ada?} CekKuota -->|Penuh| PilihTanggal CekKuota -->|Ada| InputKeluhan[Input Keluhan Awal Opsional] InputKeluhan --> KonfirmasiBooking[Konfirmasi Booking] KonfirmasiBooking -->
-              SimpanData[Simpan Data Booking] SimpanData --> GenerateAntrian[Generate Nomor Antrian] GenerateAntrian --> KirimNotif[Kirim Notifikasi Email/WA] KirimNotif --> TampilKonfirmasi[Tampilkan Konfirmasi + Nomor Antrian]
-              TampilKonfirmasi --> End([Selesai])
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 2 -->
-        <div class="tab-content" id="tab-1">
-          <div class="diagram-info">
-            <h3>Activity Diagram 2 — Input Rekam Medis (Dokter)</h3>
-            <p>Pemeriksaan dokter: vital signs, anamnesa, diagnosa, tindakan, resep.</p>
-          </div>
-          <div class="diagram-frame">
-            <div class="mermaid mermaid-scale" data-rendered="false">
-              flowchart TD Start([Dokter Mulai Pemeriksaan]) --> Login[Login Dokter] Login --> DashboardDokter[Buka Dashboard Dokter] DashboardDokter --> LihatAntrian[Lihat Antrian Hari Ini] LihatAntrian --> PilihPasien[Pilih Pasien]
-              PilihPasien --> LihatRiwayat[Lihat Riwayat Rekam Medis] LihatRiwayat --> MulaiPemeriksaan[Mulai Pemeriksaan] MulaiPemeriksaan --> InputVitalSigns[Input Vital Signs] InputVitalSigns --> InputAnamnesa[Input Anamnesa]
-              InputAnamnesa --> InputPemeriksaan[Input Pemeriksaan Fisik] InputPemeriksaan --> InputDiagnosa[Input Diagnosa] InputDiagnosa --> InputTindakan[Input Tindakan Medis] InputTindakan --> PerluResep{Perlu Resep Obat?} PerluResep
-              -->|Ya| BuatResep[Buat Resep] BuatResep --> KirimResep[Kirim Resep ke Apotek] PerluResep -->|Tidak| SimpanRM KirimResep --> SimpanRM[Simpan Rekam Medis] SimpanRM --> UpdateStatus[Update Status: Selesai] UpdateStatus -->
-              End([Pemeriksaan Selesai])
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 3 -->
-        <div class="tab-content" id="tab-2">
-          <div class="diagram-info">
-            <h3>Activity Diagram 3 — Proses Resep Obat (Apoteker)</h3>
-            <p>Proses apoteker: validasi stok, ambil obat, print label, serah obat, update stok.</p>
-          </div>
-          <div class="diagram-frame">
-            <div class="mermaid mermaid-scale" data-rendered="false">
-              flowchart TD Start([Apoteker Terima Resep]) --> Login[Login Apoteker] Login --> DashboardApoteker[Buka Dashboard Apoteker] DashboardApoteker --> CekNotif{Ada Resep Baru?} CekNotif -->|Tidak| Wait[Tunggu] Wait --> CekNotif
-              CekNotif -->|Ya| LihatResep[Lihat Resep] LihatResep --> CekObat[Cek Ketersediaan Obat] CekObat --> ValidasiStok{Stok Cukup?} ValidasiStok -->|Tidak| KonfirmasiDokter[Konfirmasi ke Dokter] KonfirmasiDokter --> CekObat
-              ValidasiStok -->|Ya| UpdateStatusProses[Update: Diproses] UpdateStatusProses --> AmbilObat[Ambil Obat dari Stok] AmbilObat --> PrintLabel[Print Label Obat] PrintLabel --> Kemas[Kemas Obat] Kemas --> PanggilPasien[Panggil
-              Pasien] PanggilPasien --> Serahkan[Serahkan Obat] Serahkan --> Konfirmasi[Konfirmasi Penyerahan di Sistem] Konfirmasi --> UpdateStok[Update Stok Otomatis] UpdateStok --> CekMin{Stok kurang dari 10 pcs?} CekMin -->|Ya|
-              Alert[Tampilkan Alert Stok Menipis] CekMin -->|Tidak| Done[Update Status: Selesai] Alert --> Done Done --> End([Selesai])
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 4 -->
-        <div class="tab-content" id="tab-3">
-          <div class="diagram-info">
-            <h3>Activity Diagram 4 — Input Pembayaran (Kasir)</h3>
-            <p>Kasir: cek kunjungan, hitung biaya, pilih metode, simpan transaksi, generate kwitansi.</p>
-          </div>
-          <div class="diagram-frame">
-            <div class="mermaid mermaid-scale" data-rendered="false">
-              flowchart TD Start([Pasien ke Kasir]) --> Cari[Kasir Cari Data Pasien] Cari --> Tampil[Tampilkan Tagihan] Tampil --> Hitung[Hitung Total Biaya] Hitung --> Konf[Konfirmasi ke Pasien] Konf --> Setuju{Pasien Setuju?} Setuju
-              -->|Tidak| Review[Cek Ulang Rincian] Review --> Hitung Setuju -->|Ya| PilihMetode[Pilih Metode Bayar] PilihMetode -->|Tunai| Tunai[Input Tunai] PilihMetode -->|Transfer| TF[Input Bukti Transfer] PilihMetode -->|BPJS|
-              BPJS[Validasi BPJS] Tunai --> Kembalian[Hitung Kembalian] TF --> Valid[Validasi Transfer] BPJS --> Valid Valid -->|Tidak| PilihMetode Valid -->|Ya| Simpan[Simpan Transaksi] Simpan --> Update[Update Status: Lunas] Update -->
-              Kwitansi[Generate Kwitansi PDF] Kwitansi --> Cetak[Print Kwitansi] Cetak --> Serah[Serahkan Kwitansi ke Pasien] Serah --> End([Selesai])
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 5 -->
-        <div class="tab-content" id="tab-4">
-          <div class="diagram-info">
-            <h3>Activity Diagram 5 — Kelola Master Data Obat</h3>
-            <p>Admin mengelola data obat: tambah, edit, hapus (cek relasi), lihat & filter data.</p>
-          </div>
-          <div class="diagram-frame">
-            <div class="mermaid mermaid-scale" data-rendered="false">
-              flowchart TD Start([Admin Kelola Obat]) --> LoginAdmin[Login Admin] LoginAdmin --> Menu[Klik Menu Master Obat] Menu --> Pilih{Pilih Aksi} Pilih -->|Tambah| FormTambah[Form Tambah Obat] Pilih -->|Edit| PilihEdit[Pilih Obat &
-              Edit] Pilih -->|Hapus| PilihHapus[Pilih Obat & Hapus] Pilih -->|Lihat| List[Tampilkan Semua Obat] FormTambah --> Valid{Validasi Data?} PilihEdit --> Valid Valid -->|Tidak| Error[Tampilkan Error] Valid -->|Ya| CekDuplikat{Nama
-              Obat Sudah Ada?} CekDuplikat -->|Ya| Warning[Tampil Warning] CekDuplikat -->|Tidak| Simpan[Simpan Data] Simpan --> Log[Catat Log Aktivitas] PilihHapus --> Konf{Yakin Hapus?} Konf -->|Ya| CekRelasi{Obat Pernah Diresepkan?}
-              CekRelasi -->|Ya| Gagal[Gagal Hapus] CekRelasi -->|Tidak| Hapus[Hapus Data] Hapus --> Log Gagal --> Menu Log --> Selesai([Selesai])
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 6 -->
-        <div class="tab-content" id="tab-5">
-          <div class="diagram-info">
-            <h3>Activity Diagram 6 — Generate Laporan</h3>
-            <p>Admin menentukan periode & filter, preview, lalu export Excel/PDF.</p>
-          </div>
-          <div class="diagram-frame">
-            <div class="mermaid mermaid-scale" data-rendered="false">
-              flowchart TD Start([Admin Generate Laporan]) --> LoginAdmin[Login Admin] LoginAdmin --> MenuLaporan[Menu Laporan] MenuLaporan --> PilihJenis{Pilih Jenis Laporan} PilihJenis -->|Kunjungan| SetupKunjungan[Setup Parameter
-              Kunjungan] PilihJenis -->|Pendapatan| SetupPendapatan[Setup Parameter Pendapatan] PilihJenis -->|Stok| SetupStok[Setup Parameter Stok] SetupKunjungan --> InputPeriode[Input Periode] InputPeriode --> PilihFilter[Pilih Filter
-              Tambahan] PilihFilter --> Valid{Validasi Parameter?} Valid -->|Tidak| Error[Error: Periode Tidak Valid] Valid -->|Ya| Query[Query Data dari DB] Query -->|Tidak| Kosong[Tampilkan: Tidak Ada Data] Query -->|Ya| Proses[Proses &
-              Hitung Statistik] Proses --> Preview[Tampilkan Preview] Preview --> Export{Export?} Export -->|Excel| Excel[Generate Excel] Export -->|PDF| PDF[Generate PDF] Excel --> Save[Simpan File] PDF --> Save Save --> Link[Berikan Link
-              Download] Link --> End([Selesai])
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 7 - REGISTRASI (HANYA INI YG DIGANTI) -->
-        <div class="tab-content" id="tab-6">
-          <div class="diagram-info">
-            <h3>Activity Diagram 7 — Registrasi Pasien Baru (Safe)</h3>
-            <p>Versi registrasi yang diubah agar 100% aman terhadap parser Mermaid.</p>
-          </div>
-          <div class="diagram-frame">
-            <div class="mermaid mermaid-scale" data-rendered="false">
-              flowchart TD Start([Pasien Baru Ingin Daftar]) --> Open[Buka Website SimKlinik] Open --> ClickReg[Klik Registrasi] ClickReg --> Form[Buka Form Registrasi] Form --> Bio[Input Biodata Pasien] Bio --> Account[Input Data Akun]
-              Account --> Extra[Input Data Tambahan] Extra --> Agree[Setujui Syarat dan Ketentuan] Agree --> Submit[Klik Submit] Submit --> ClientCheck{Validasi Data Client} ClientCheck -->|Gagal| ClientError[Tampilkan Error] ClientError
-              --> Form ClientCheck -->|Lolos| SendServer[Kirim Data ke Server] SendServer --> ServerCheck{Validasi Data Server} ServerCheck -->|NIK Ada| ErrNIK[NIK Sudah Terdaftar] ServerCheck -->|Username Ada| ErrUser[Username Sudah
-              Digunakan] ServerCheck -->|Email Ada| ErrEmail[Email Sudah Terdaftar] ErrNIK --> Form ErrUser --> Form ErrEmail --> Form ServerCheck -->|Valid| GenRM[Generate Nomor Rekam Medis] GenRM --> Hash[Hash Password] Hash -->
-              SaveDB[Simpan Data ke Database] SaveDB --> SendMail[Kirim Email Aktivasi] SendMail --> Success[Registrasi Berhasil] Success --> Redirect[Redirect ke Halaman Login] Redirect --> End([Selesai])
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 8 -->
-        <div class="tab-content" id="tab-7">
-          <div class="diagram-info">
-            <h3>Activity Diagram 8 — Login Multi-Role</h3>
-            <p>Authentikasi, proteksi percobaan login berulang, generate session, redirect sesuai role.</p>
-          </div>
-          <div class="diagram-frame">
-            <div class="mermaid mermaid-scale" data-rendered="false">
-              flowchart TD Start([User Akses Sistem]) --> Buka[Buka Halaman Login] Buka --> Input[Input Username/Email & Password] Input --> Klik[Klik Login] Klik --> Valid{Input Lengkap?} Valid -->|Tidak| ErrKosong[Tampil Error] ErrKosong
-              --> Buka Valid -->|Ya| Kirim[Kirim ke Server] Kirim --> CekDB[Cek User di DB] CekDB -->|Tidak| ErrUser[User Tidak Terdaftar] ErrUser --> Buka CekDB -->|Ya| CekPass[Verifikasi Password] CekPass -->|Salah| Hitung[Hitung
-              Percobaan] Hitung --> Max{Sudah 3x?} Max -->|Ya| Blok[Blokir Sementara] Blok --> EndFail([Akun Terblokir]) Max -->|Tidak| ErrPass[Error Password] ErrPass --> Buka CekPass -->|Benar| CekStatus{Status Akun Aktif?} CekStatus
-              -->|Tidak| ErrAktiv[Belum Aktivasi] ErrAktiv --> EndFail CekStatus -->|Ya| GetRole[Ambil Role User] GetRole --> GenSess[Generate Session JWT] GenSess --> SaveSess[Simpan Session & Cookie] SaveSess --> Log[Catat Login Sukses]
-              Log --> Redirect{Redirect Berdasarkan Role} Redirect -->|Admin| DashAdmin[Dashboard Admin] Redirect -->|Dokter| DashDokter[Dashboard Dokter] Redirect -->|Apoteker| DashApoteker[Dashboard Apoteker] Redirect -->|Pasien|
-              DashPasien[Dashboard Pasien] DashAdmin --> EndOk([Login Berhasil])
-            </div>
-          </div>
-        </div>
-
-        <!-- Controls: Zoom + Print -->
-        <div class="controls" aria-hidden="false">
-          <div class="zoom-wrap">
-            <label style="font-weight: 700; color: var(--muted); margin-right: 6px">Zoom</label>
-            <input id="zoomRange" type="range" min="0.6" max="1.2" step="0.05" value="1" title="Zoom diagram" />
-            <button class="btn ghost" id="zoomReset">Reset</button>
-          </div>
-
-          <div style="flex: 1"></div>
-
-          <button class="btn primary" onclick="window.print()">🖨️ Print</button>
-        </div>
-      </div>
+    @media print{
+      body{background:white}
+      .tabs,.controls{display:none}
+      .hero{display:none}
+      .tab-content{display:block !important; page-break-after:always}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>📊 Activity Diagrams</h1>
+      <p>SimKlinik — Sistem Informasi Manajemen Klinik · Versi final (safe)</p>
     </div>
 
-    <script>
-      // Mermaid init: safe config
-      mermaid.initialize({
-        startOnLoad: false,
-        theme: "neutral",
-        securityLevel: "loose",
-        flowchart: { useMaxWidth: true, htmlLabels: true, curve: "basis" },
+    <div class="tabs" role="tablist" aria-label="Daftar Diagram">
+      <button class="tab active" onclick="showTab(0)">1. Booking</button>
+      <button class="tab" onclick="showTab(1)">2. Rekam Medis</button>
+      <button class="tab" onclick="showTab(2)">3. Proses Resep</button>
+      <button class="tab" onclick="showTab(3)">4. Pembayaran</button>
+      <button class="tab" onclick="showTab(4)">5. Master Obat</button>
+      <button class="tab" onclick="showTab(5)">6. Laporan</button>
+      <button class="tab" onclick="showTab(6)">7. Registrasi</button>
+      <button class="tab" onclick="showTab(7)">8. Login</button>
+    </div>
+
+    <div class="content">
+      <!-- TAB 1 -->
+      <div class="tab-content active" id="tab-0">
+        <div class="diagram-info">
+          <h3>Activity Diagram 1 — Booking Appointment</h3>
+          <p>Alur booking pasien: dari login hingga mendapatkan nomor antrian dan notifikasi.</p>
+        </div>
+        <div class="diagram-frame">
+          <div class="mermaid mermaid-scale" data-rendered="false">
+flowchart TD
+    Start([Pasien Ingin Booking]) --> Login{Sudah Login?}
+    Login -->|Belum| DoLogin[Login ke Sistem]
+    Login -->|Sudah| Dashboard
+    DoLogin --> Dashboard[Buka Dashboard Pasien]
+    Dashboard --> PilihPoli[Pilih Poli Klinik]
+    PilihPoli --> LihatJadwal[Lihat Jadwal Dokter]
+    LihatJadwal --> CekJadwal{Jadwal Tersedia?}
+    CekJadwal -->|Tidak| PilihPoli
+    CekJadwal -->|Ya| PilihDokter[Pilih Dokter]
+    PilihDokter --> PilihTanggal[Pilih Tanggal & Jam]
+    PilihTanggal --> CekKuota{Kuota Masih Ada?}
+    CekKuota -->|Penuh| PilihTanggal
+    CekKuota -->|Ada| InputKeluhan[Input Keluhan Awal Opsional]
+    InputKeluhan --> KonfirmasiBooking[Konfirmasi Booking]
+    KonfirmasiBooking --> SimpanData[Simpan Data Booking]
+    SimpanData --> GenerateAntrian[Generate Nomor Antrian]
+    GenerateAntrian --> KirimNotif[Kirim Notifikasi Email/WA]
+    KirimNotif --> TampilKonfirmasi[Tampilkan Konfirmasi + Nomor Antrian]
+    TampilKonfirmasi --> End([Selesai])
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2 -->
+      <div class="tab-content" id="tab-1">
+        <div class="diagram-info">
+          <h3>Activity Diagram 2 — Input Rekam Medis (Dokter)</h3>
+          <p>Pemeriksaan dokter: vital signs, anamnesa, diagnosa, tindakan, resep.</p>
+        </div>
+        <div class="diagram-frame">
+          <div class="mermaid mermaid-scale" data-rendered="false">
+flowchart TD
+    Start([Dokter Mulai Pemeriksaan]) --> Login[Login Dokter]
+    Login --> DashboardDokter[Buka Dashboard Dokter]
+    DashboardDokter --> LihatAntrian[Lihat Antrian Hari Ini]
+    LihatAntrian --> PilihPasien[Pilih Pasien]
+    PilihPasien --> LihatRiwayat[Lihat Riwayat Rekam Medis]
+    LihatRiwayat --> MulaiPemeriksaan[Mulai Pemeriksaan]
+    MulaiPemeriksaan --> InputVitalSigns[Input Vital Signs]
+    InputVitalSigns --> InputAnamnesa[Input Anamnesa]
+    InputAnamnesa --> InputPemeriksaan[Input Pemeriksaan Fisik]
+    InputPemeriksaan --> InputDiagnosa[Input Diagnosa]
+    InputDiagnosa --> InputTindakan[Input Tindakan Medis]
+    InputTindakan --> PerluResep{Perlu Resep Obat?}
+    PerluResep -->|Ya| BuatResep[Buat Resep]
+    BuatResep --> KirimResep[Kirim Resep ke Apotek]
+    PerluResep -->|Tidak| SimpanRM
+    KirimResep --> SimpanRM[Simpan Rekam Medis]
+    SimpanRM --> UpdateStatus[Update Status: Selesai]
+    UpdateStatus --> End([Pemeriksaan Selesai])
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3 -->
+      <div class="tab-content" id="tab-2">
+        <div class="diagram-info">
+          <h3>Activity Diagram 3 — Proses Resep Obat (Apoteker)</h3>
+          <p>Proses apoteker: validasi stok, ambil obat, print label, serah obat, update stok.</p>
+        </div>
+        <div class="diagram-frame">
+          <div class="mermaid mermaid-scale" data-rendered="false">
+flowchart TD
+    Start([Apoteker Terima Resep]) --> Login[Login Apoteker]
+    Login --> DashboardApoteker[Buka Dashboard Apoteker]
+    DashboardApoteker --> CekNotif{Ada Resep Baru?}
+    CekNotif -->|Tidak| Wait[Tunggu]
+    Wait --> CekNotif
+    CekNotif -->|Ya| LihatResep[Lihat Resep]
+    LihatResep --> CekObat[Cek Ketersediaan Obat]
+    CekObat --> ValidasiStok{Stok Cukup?}
+    ValidasiStok -->|Tidak| KonfirmasiDokter[Konfirmasi ke Dokter]
+    KonfirmasiDokter --> CekObat
+    ValidasiStok -->|Ya| UpdateStatusProses[Update: Diproses]
+    UpdateStatusProses --> AmbilObat[Ambil Obat dari Stok]
+    AmbilObat --> PrintLabel[Print Label Obat]
+    PrintLabel --> Kemas[Kemas Obat]
+    Kemas --> PanggilPasien[Panggil Pasien]
+    PanggilPasien --> Serahkan[Serahkan Obat]
+    Serahkan --> Konfirmasi[Konfirmasi Penyerahan di Sistem]
+    Konfirmasi --> UpdateStok[Update Stok Otomatis]
+    UpdateStok --> CekMin{Stok kurang dari 10 pcs?}
+    CekMin -->|Ya| Alert[Tampilkan Alert Stok Menipis]
+    CekMin -->|Tidak| Done[Update Status: Selesai]
+    Alert --> Done
+    Done --> End([Selesai])
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4 -->
+      <div class="tab-content" id="tab-3">
+        <div class="diagram-info">
+          <h3>Activity Diagram 4 — Input Pembayaran (Kasir)</h3>
+          <p>Kasir: cek kunjungan, hitung biaya, pilih metode, simpan transaksi, generate kwitansi.</p>
+        </div>
+        <div class="diagram-frame">
+          <div class="mermaid mermaid-scale" data-rendered="false">
+flowchart TD
+    Start([Pasien ke Kasir]) --> Cari[Kasir Cari Data Pasien]
+    Cari --> Tampil[Tampilkan Tagihan]
+    Tampil --> Hitung[Hitung Total Biaya]
+    Hitung --> Konf[Konfirmasi ke Pasien]
+    Konf --> Setuju{Pasien Setuju?}
+    Setuju -->|Tidak| Review[Cek Ulang Rincian]
+    Review --> Hitung
+    Setuju -->|Ya| PilihMetode[Pilih Metode Bayar]
+    PilihMetode -->|Tunai| Tunai[Input Tunai]
+    PilihMetode -->|Transfer| TF[Input Bukti Transfer]
+    PilihMetode -->|BPJS| BPJS[Validasi BPJS]
+    Tunai --> Kembalian[Hitung Kembalian]
+    TF --> Valid[Validasi Transfer]
+    BPJS --> Valid
+    Valid -->|Tidak| PilihMetode
+    Valid -->|Ya| Simpan[Simpan Transaksi]
+    Simpan --> Update[Update Status: Lunas]
+    Update --> Kwitansi[Generate Kwitansi PDF]
+    Kwitansi --> Cetak[Print Kwitansi]
+    Cetak --> Serah[Serahkan Kwitansi ke Pasien]
+    Serah --> End([Selesai])
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5 -->
+      <div class="tab-content" id="tab-4">
+        <div class="diagram-info">
+          <h3>Activity Diagram 5 — Kelola Master Data Obat</h3>
+          <p>Admin mengelola data obat: tambah, edit, hapus (cek relasi), lihat & filter data.</p>
+        </div>
+        <div class="diagram-frame">
+          <div class="mermaid mermaid-scale" data-rendered="false">
+flowchart TD
+    Start([Admin Kelola Obat]) --> LoginAdmin[Login Admin]
+    LoginAdmin --> Menu[Klik Menu Master Obat]
+    Menu --> Pilih{Pilih Aksi}
+    Pilih -->|Tambah| FormTambah[Form Tambah Obat]
+    Pilih -->|Edit| PilihEdit[Pilih Obat & Edit]
+    Pilih -->|Hapus| PilihHapus[Pilih Obat & Hapus]
+    Pilih -->|Lihat| List[Tampilkan Semua Obat]
+    FormTambah --> Valid{Validasi Data?}
+    PilihEdit --> Valid
+    Valid -->|Tidak| Error[Tampilkan Error]
+    Valid -->|Ya| CekDuplikat{Nama Obat Sudah Ada?}
+    CekDuplikat -->|Ya| Warning[Tampil Warning]
+    CekDuplikat -->|Tidak| Simpan[Simpan Data]
+    Simpan --> Log[Catat Log Aktivitas]
+    PilihHapus --> Konf{Yakin Hapus?}
+    Konf -->|Ya| CekRelasi{Obat Pernah Diresepkan?}
+    CekRelasi -->|Ya| Gagal[Gagal Hapus]
+    CekRelasi -->|Tidak| Hapus[Hapus Data]
+    Hapus --> Log
+    Gagal --> Menu
+    Log --> Selesai([Selesai])
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6 -->
+      <div class="tab-content" id="tab-5">
+        <div class="diagram-info">
+          <h3>Activity Diagram 6 — Generate Laporan</h3>
+          <p>Admin menentukan periode & filter, preview, lalu export Excel/PDF.</p>
+        </div>
+        <div class="diagram-frame">
+          <div class="mermaid mermaid-scale" data-rendered="false">
+flowchart TD
+    Start([Admin Generate Laporan]) --> LoginAdmin[Login Admin]
+    LoginAdmin --> MenuLaporan[Menu Laporan]
+    MenuLaporan --> PilihJenis{Pilih Jenis Laporan}
+    PilihJenis -->|Kunjungan| SetupKunjungan[Setup Parameter Kunjungan]
+    PilihJenis -->|Pendapatan| SetupPendapatan[Setup Parameter Pendapatan]
+    PilihJenis -->|Stok| SetupStok[Setup Parameter Stok]
+    SetupKunjungan --> InputPeriode[Input Periode]
+    InputPeriode --> PilihFilter[Pilih Filter Tambahan]
+    PilihFilter --> Valid{Validasi Parameter?}
+    Valid -->|Tidak| Error[Error: Periode Tidak Valid]
+    Valid -->|Ya| Query[Query Data dari DB]
+    Query -->|Tidak| Kosong[Tampilkan: Tidak Ada Data]
+    Query -->|Ya| Proses[Proses & Hitung Statistik]
+    Proses --> Preview[Tampilkan Preview]
+    Preview --> Export{Export?}
+    Export -->|Excel| Excel[Generate Excel]
+    Export -->|PDF| PDF[Generate PDF]
+    Excel --> Save[Simpan File]
+    PDF --> Save
+    Save --> Link[Berikan Link Download]
+    Link --> End([Selesai])
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 7 - REGISTRASI (HANYA INI YG DIGANTI) -->
+      <div class="tab-content" id="tab-6">
+        <div class="diagram-info">
+          <h3>Activity Diagram 7 — Registrasi Pasien Baru (Safe)</h3>
+          <p>Versi registrasi yang diubah agar 100% aman terhadap parser Mermaid.</p>
+        </div>
+        <div class="diagram-frame">
+          <div class="mermaid mermaid-scale" data-rendered="false">
+flowchart TD
+
+Start([Pasien Baru Ingin Daftar]) --> Open[Buka Website SimKlinik]
+Open --> ClickReg[Klik Registrasi]
+ClickReg --> Form[Buka Form Registrasi]
+
+Form --> Bio[Input Biodata Pasien]
+Bio --> Account[Input Data Akun]
+Account --> Extra[Input Data Tambahan]
+
+Extra --> Agree[Setujui Syarat dan Ketentuan]
+Agree --> Submit[Klik Submit]
+
+Submit --> ClientCheck{Validasi Data Client}
+ClientCheck -->|Gagal| ClientError[Tampilkan Error]
+ClientError --> Form
+
+ClientCheck -->|Lolos| SendServer[Kirim Data ke Server]
+
+SendServer --> ServerCheck{Validasi Data Server}
+
+ServerCheck -->|NIK Ada| ErrNIK[NIK Sudah Terdaftar]
+ServerCheck -->|Username Ada| ErrUser[Username Sudah Digunakan]
+ServerCheck -->|Email Ada| ErrEmail[Email Sudah Terdaftar]
+
+ErrNIK --> Form
+ErrUser --> Form
+ErrEmail --> Form
+
+ServerCheck -->|Valid| GenRM[Generate Nomor Rekam Medis]
+GenRM --> Hash[Hash Password]
+
+Hash --> SaveDB[Simpan Data ke Database]
+SaveDB --> SendMail[Kirim Email Aktivasi]
+
+SendMail --> Success[Registrasi Berhasil]
+Success --> Redirect[Redirect ke Halaman Login]
+
+Redirect --> End([Selesai])
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 8 -->
+      <div class="tab-content" id="tab-7">
+        <div class="diagram-info">
+          <h3>Activity Diagram 8 — Login Multi-Role</h3>
+          <p>Authentikasi, proteksi percobaan login berulang, generate session, redirect sesuai role.</p>
+        </div>
+        <div class="diagram-frame">
+          <div class="mermaid mermaid-scale" data-rendered="false">
+flowchart TD
+    Start([User Akses Sistem]) --> Buka[Buka Halaman Login]
+    Buka --> Input[Input Username/Email & Password]
+    Input --> Klik[Klik Login]
+    Klik --> Valid{Input Lengkap?}
+    Valid -->|Tidak| ErrKosong[Tampil Error]
+    ErrKosong --> Buka
+    Valid -->|Ya| Kirim[Kirim ke Server]
+    Kirim --> CekDB[Cek User di DB]
+    CekDB -->|Tidak| ErrUser[User Tidak Terdaftar]
+    ErrUser --> Buka
+    CekDB -->|Ya| CekPass[Verifikasi Password]
+    CekPass -->|Salah| Hitung[Hitung Percobaan]
+    Hitung --> Max{Sudah 3x?}
+    Max -->|Ya| Blok[Blokir Sementara]
+    Blok --> EndFail([Akun Terblokir])
+    Max -->|Tidak| ErrPass[Error Password]
+    ErrPass --> Buka
+    CekPass -->|Benar| CekStatus{Status Akun Aktif?}
+    CekStatus -->|Tidak| ErrAktiv[Belum Aktivasi]
+    ErrAktiv --> EndFail
+    CekStatus -->|Ya| GetRole[Ambil Role User]
+    GetRole --> GenSess[Generate Session JWT]
+    GenSess --> SaveSess[Simpan Session & Cookie]
+    SaveSess --> Log[Catat Login Sukses]
+    Log --> Redirect{Redirect Berdasarkan Role}
+    Redirect -->|Admin| DashAdmin[Dashboard Admin]
+    Redirect -->|Dokter| DashDokter[Dashboard Dokter]
+    Redirect -->|Apoteker| DashApoteker[Dashboard Apoteker]
+    Redirect -->|Pasien| DashPasien[Dashboard Pasien]
+    DashAdmin --> EndOk([Login Berhasil])
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls: Zoom + Print -->
+      <div class="controls" aria-hidden="false">
+        <div class="zoom-wrap">
+          <label style="font-weight:700;color:var(--muted);margin-right:6px">Zoom</label>
+          <input id="zoomRange" type="range" min="0.6" max="1.2" step="0.05" value="1" title="Zoom diagram"/>
+          <button class="btn ghost" id="zoomReset">Reset</button>
+        </div>
+
+        <div style="flex:1"></div>
+
+        <button class="btn primary" onclick="window.print()">🖨️ Print</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Mermaid init: safe config
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'neutral',
+      securityLevel: 'loose',
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+    });
+
+    // render initial active tab diagrams
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.tab-content.active .mermaid').forEach(el=>{
+        try{ mermaid.init(undefined, el); el.dataset.rendered='true'; }catch(e){ console.error('Mermaid init error', e) }
       });
+    });
 
-      // render initial active tab diagrams
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".tab-content.active .mermaid").forEach((el) => {
-          try {
-            mermaid.init(undefined, el);
-            el.dataset.rendered = "true";
-          } catch (e) {
-            console.error("Mermaid init error", e);
-          }
-        });
-      });
+    function showTab(i){
+      const tabs = document.querySelectorAll('.tab');
+      const contents = document.querySelectorAll('.tab-content');
+      tabs.forEach((t,idx)=> t.classList.toggle('active', idx===i));
+      contents.forEach((c,idx)=> c.classList.toggle('active', idx===i));
 
-      function showTab(i) {
-        const tabs = document.querySelectorAll(".tab");
-        const contents = document.querySelectorAll(".tab-content");
-        tabs.forEach((t, idx) => t.classList.toggle("active", idx === i));
-        contents.forEach((c, idx) => c.classList.toggle("active", idx === i));
-
-        const target = contents[i];
-        if (!target) return;
-        const mermaidBlock = target.querySelector(".mermaid");
-        if (mermaidBlock && mermaidBlock.dataset.rendered !== "true") {
-          try {
-            mermaid.init(undefined, mermaidBlock);
-            mermaidBlock.dataset.rendered = "true";
-          } catch (e) {
-            console.error("Mermaid render error", e);
-          }
-        }
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      const target = contents[i];
+      if(!target) return;
+      const mermaidBlock = target.querySelector('.mermaid');
+      if(mermaidBlock && mermaidBlock.dataset.rendered!=='true'){
+        try{ mermaid.init(undefined, mermaidBlock); mermaidBlock.dataset.rendered='true'; }catch(e){ console.error('Mermaid render error', e) }
       }
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
 
-      // zoom control
-      const zoomRange = document.getElementById("zoomRange");
-      const zoomReset = document.getElementById("zoomReset");
-      function setZoom(v) {
-        document.querySelectorAll(".mermaid-scale").forEach((el) => {
-          el.style.transform = "scale(" + v + ")";
-        });
-      }
-      zoomRange.addEventListener("input", (e) => setZoom(e.target.value));
-      zoomReset.addEventListener("click", () => {
-        zoomRange.value = 1;
-        setZoom(1);
+    // zoom control
+    const zoomRange = document.getElementById('zoomRange');
+    const zoomReset = document.getElementById('zoomReset');
+    function setZoom(v){
+      document.querySelectorAll('.mermaid-scale').forEach(el=>{
+        el.style.transform = 'scale(' + v + ')';
       });
+    }
+    zoomRange.addEventListener('input', (e)=> setZoom(e.target.value));
+    zoomReset.addEventListener('click', ()=>{
+      zoomRange.value = 1;
       setZoom(1);
-    </script>
-  </body>
+    });
+    setZoom(1);
+  </script>
+</body>
 </html>
